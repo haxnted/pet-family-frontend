@@ -43,13 +43,13 @@ export default function MainNavBar() {
 		setValue(newValue);
 		switch (newValue) {
 			case 0:
-				navigate("/page1");
+				navigate("/");
 				break;
 			case 1:
-				navigate("/page2");
+				navigate("/volunteers");
 				break;
 			case 2:
-				navigate("/page3");
+				navigate("/help-pets");
 				break;
 			default:
 				break;
