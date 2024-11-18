@@ -1,31 +1,18 @@
-import { useNavigate } from "react-router-dom";
 import account from "../../assets/account.png";
 import favorite from "../../assets/favorite.png";
 import logo from "../../assets/logo.png";
 import logout from "../../assets/logout.png";
-import registration from "../../assets/registration.png";
+import login from "../../assets/registration.png";
 
-let isLogined: boolean = true;
+import { useNavigate } from "react-router-dom";
+let isLogined: boolean = false;
 let isUserVolunteer: boolean = false;
+let userId: number = 1;
 
-export const Header = () => {
+export function Header() {
 	const navigate = useNavigate();
-
 	const handleLogoClick = () => {
 		navigate("/");
-	};
-
-	const handleProfileClick = () => {
-		if (!isLogined) {
-			navigate("/login");
-		} else {
-			const userId = 1;
-			const volunteerId = 1;
-			const profilePath = isUserVolunteer
-				? `/volunteers/${volunteerId}`
-				: `/users/${userId}`;
-			navigate(profilePath);
-		}
 	};
 
 	return (
@@ -40,7 +27,6 @@ export const Header = () => {
 					/>
 				</div>
 				<div className="text-3xl text-white font-bold">PetFamily</div>
-
 				<div className="flex items-center space-x-2">
 					{!isUserVolunteer && (
 						<div className="text-white font-bold cursor-pointer">
@@ -52,33 +38,33 @@ export const Header = () => {
 							/>
 						</div>
 					)}
-					{!isLogined ? (
+					{isLogined ? (
 						<>
 							<img
 								src={account}
 								alt="Аккаунт"
 								className="h-7 w-7 mx-3 filter invert cursor-pointer"
-								onClick={() => navigate("/login")}
+								onClick={() => navigate(`/profile/${userId}`)}
 							/>
 							<img
 								src={logout}
 								alt="Выход"
 								className="h-7 w-7 filter invert cursor-pointer"
 								onClick={() => {
-									// Выход из аккаунта
+									// вызывать метод для выхода
 								}}
 							/>
 						</>
 					) : (
 						<img
-							src={registration}
+							src={login}
 							alt="Регистрация"
 							className="h-7 w-7 filter invert cursor-pointer"
-							onClick={handleProfileClick}
+							onClick={() => navigate("/login")}
 						/>
 					)}
 				</div>
 			</div>
 		</header>
 	);
-};
+}
